@@ -1,4 +1,4 @@
-- name: install LAMP stack on server
+- name: Setup MySQL on server
   hosts: servers
   become: yes
 
@@ -23,9 +23,9 @@
     - name: Install mysqlclient via pip
       pip: name=mysqlclient
 
-    - name: Create a new database with name 'myTestDb'
+    - name: Create a new database with name 'wordpressDb'
       mysql_db:
-        name: myTestDb
+        name: wordpressDb
         state: present
       notify:
         - Restart apache

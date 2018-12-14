@@ -1,0 +1,6 @@
+### step 1
+ansible-playbook -i hosts first_run.yml -DKk
+
+### step 2
+ansible-playbook apache_wp_setup.yml
+ansible-playbook mysql_setup.yml
