@@ -1,7 +1,8 @@
-ansible all -i hosts --list-hosts
 
 ### step 1
-ansible-playbook -i hosts first_run.yml -DKk
+ansible-vault encrypt ./group_vars/all
+ansible-vault view ./group_vars/all
 
 ### step 2
-ansible-playbook lamp_install.yml -i hosts
+ansible-playbook apache_setup.yml
+ansible-playbook mysql_setup.yml

@@ -12,11 +12,10 @@
       Architecture - {{ ansible_architecture }}
 
   tasks:
-    - name: Install LAMP packages
+    - name: Install Apache
       apt: name={{ item }} state=present
       with_items:
         - apache2
-        - mysql-server
         - php
         - libapache2-mod-php
         - php-mcrypt
