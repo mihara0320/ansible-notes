@@ -1,0 +1,46 @@
+- name: install LAMP stack on server
+  hosts: servers
+  become: yes
+
+  tasks:
+    - name: Update cache
+      apt:
+        update_cache: yes
+
+    - name: Install MySQL packages
+      apt: 
+        name: mysql-server 
+        state: present
+        update_cache: yes
+
+    - name: Install dependencies for python mysqlclient
+      apt: name={{ item }} state=latest
+      with_items:
+        - python3-pip 
+        - python-dev 
+        - libmysqlclient-dev
+
+    - name: Install mysqlclient via pip
+      pip: name=mysqlclient
+
+    - name: Create a new database with name 'myTestDb'
+      mysql_db:
+        name: myTestDb
+        state: present
+      notify:
+        - Restart apache
+
+    - name: Create new user with all privileges
+      mysql_user:
+        name: "{{ mysql_user }}"
+        password: "{{ mysql_user_pass }}"
+        priv: '*.*:ALL'
+        state: present
+      notify:
+        - Restart apache
+
+  handlers:
+    - name: Restart apache
+      service:
+        name: apache2
+        state: restarted
