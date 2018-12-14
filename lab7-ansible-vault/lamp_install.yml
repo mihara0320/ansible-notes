@@ -1,0 +1,74 @@
+- name: install LAMP stack on server
+  hosts: servers
+  become: yes
+  vars:
+    server_info: |
+      System - {{ ansible_system }}
+      Memory - {{ ansible_memtotal_mb }}
+      OS family - {{ ansible_os_family }}
+      Processor - {{ ansible_processor[2] }}
+      Machine ID - {{ ansible_machine_id }}
+      OS - {{ ansible_lsb.description }}
+      Architecture - {{ ansible_architecture }}
+
+  tasks:
+    - name: Install LAMP packages
+      apt: name={{ item }} state=present
+      with_items:
+        - apache2
+        - mysql-server
+        - php
+        - libapache2-mod-php
+        - php-mcrypt
+        - php-mysql
+
+    - name: copy index.php to /var/www/html
+      copy:
+        src: ../files/index.php
+        dest: /var/www/html/index.php
+    
+    - name: create text file on remote server
+      copy:
+        content: "{{ server_info }}"
+        dest: /var/www/html/serverinfo.txt
+    
+    - name: Make sure we can use htpasswd module
+      apt: name=python3-passlib state=present
+      when: ansible_python.version.major == 2
+
+    - name: Make sure we can use htpasswd module
+      apt: name=python3-passlib state=present
+      when: ansible_python.version.major != 2
+
+    - name: edit apache password file
+      htpasswd:
+        path: /etc/apache2/passwdfile
+        create: yes
+        name: "{{ http_user }}"
+        password: "{{ http_password }}"
+        owner: root
+        group: www-data
+        mode: 0640
+        state: present
+
+    - name: setup basic authentication for /var/www/html directory content
+      copy:
+        content: |
+          <VirtualHost *:80>
+            ServerAdmin webmaster@localhost
+            DocumentRoot /var/www/html
+            ErrorLog ${APACHE_LOG_DIR}/error.log
+            CustomLog ${APACHE_LOG_DIR}/access.log combined
+            <Directory "/var/www/html">
+              AuthType Basic
+              AuthName "Restricted Content"
+              AuthUserFile /etc/apache2/passwdfile
+              Require valid-user
+            </Directory>
+          </VirtualHost>
+        dest: /etc/apache2/sites-available/000-default.conf
+
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted

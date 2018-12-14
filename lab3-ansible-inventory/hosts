@@ -1,0 +1,9 @@
+[routers]
+R1 ansible_ssh_host=192.168.122.106 ansible_ssh_user=cisco ansible_ssh_pass=cisco ansible_ssh_common_args=-oKexAlgorithms=+diffie-hellman-group1-sha1
+
+[switches]
+S1 ansible_ssh_host=192.168.122.200 ansible_ssh_user=cisco ansible_ssh_pass=cisco ansible_ssh_common_args=-oKexAlgorithms=+diffie-hellman-group1-sha1
+
+[myAll:children]
+routers
+switches

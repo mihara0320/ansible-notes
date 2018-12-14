@@ -1,0 +1,8 @@
+System - {{ ansible_system }}shfksjd
+Memory - {{ ansible_memtotal_mb }}
+OS family - {{ ansible_os_family }}
+Processor - {{ ansible_processor[2] }}
+Machine ID - {{ ansible_machine_id }}
+OS - {{ ansible_lsb.description }}
+Architecture - {{ ansible_architecture }}
+

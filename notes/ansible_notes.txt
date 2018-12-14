@@ -1,0 +1,13 @@
+ansible all --list-hosts -i hosts
+
+ansible all -i hosts -m ping 
+--------------------------------------
+
+ansible all -i hosts -m raw -a "apt update" --become --ask-become-pass
+
+ansible-playbook -i hosts playbook.yml -DC
+
+ansible-playbook -i hosts first_run.yml -k -K
+
+ansible all -i hosts -m ping --become --ask-become-pass
+

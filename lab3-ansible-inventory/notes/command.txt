@@ -1,0 +1,6 @@
+ansible routers -i hosts -m raw -a "sh arp"
+ansible switches -i hosts -m raw -a "show spanning-tree root"
+
+ansible myAll -i hosts --list-hosts
+
+ansible myAll -i hosts -m raw -a "show ip int b"
