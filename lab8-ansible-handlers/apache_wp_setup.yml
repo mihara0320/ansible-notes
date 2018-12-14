@@ -1,6 +1,7 @@
 - name: install LAMP stack on server
   hosts: servers
   become: yes
+
   tasks:
     - name: Install Apache
       apt: name={{ item }} state=present
@@ -15,7 +16,7 @@
       copy:
         src: ../files/index.php
         dest: /var/www/html/index.php
-        
+    
     - name: Make sure we can use htpasswd module
       apt: name=python3-passlib state=present
       when: ansible_python.version.major == 2
@@ -51,6 +52,18 @@
             </Directory>
           </VirtualHost>
         dest: /etc/apache2/sites-available/000-default.conf
+
+    - name: Create directory for WP in /var/www/html/
+      file:
+        state: directory
+        path: /var/www/html/wp
+
+    - name: Download Wordpress archive, then unarchive
+      unarchive:
+        src: http://wordpress.org/latest.tar.gz
+        dest: /var/www/html/wp
+        remote_src: yes
+
 
     - name: restart apache
       service:

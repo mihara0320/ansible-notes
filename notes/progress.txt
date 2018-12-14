@@ -4,8 +4,8 @@ Ansible Inventory ++
 Ansible Basics ++
 Ansible Playbooks ++
 Ansible Variables --
-Ansible Vault 
-Ansible Handlers
+Ansible Vault --
+Ansible Handlers ?? mysql add user to database is not done
 Ansible Roles
 Ansible ios_config
 Jinja2 templates
