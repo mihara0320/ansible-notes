@@ -1,0 +1,43 @@
+- name: Install LAMP packages
+  apt: name={{ item }} state=present
+  with_items:
+    - libapache2-mod-php
+    - php-mysql
+  become: yes
+
+- name: Make sure we can use htpasswd module
+  apt: name=python3-passlib state=present
+  become: yes
+  
+- name: edit apache password file
+  htpasswd:
+    path: /etc/apache2/passwdfile
+    create: yes
+    name: "{{ http_user }}"
+    password: "{{ http_password }}"
+    owner: root
+    group: www-data
+    mode: 0640
+    state: present
+  notify:
+    - Restart apache
+    - Check ApacheCfg
+  become: yes
+
+- name: Remove default config
+  file:
+    path: /etc/apache2/sites-enabled/000-default.conf
+    state: absent
+  notify: 
+    - Check ApacheCfg
+    - Restart apache
+  become: yes
+
+- name: setup basic authentication for /var/www/html directory content
+  copy:
+    src: apache.conf
+    dest: /etc/apache2/sites-available/default.conf
+  notify:
+    - Restart apache
+    - Check ApacheCfg
+  become: yes

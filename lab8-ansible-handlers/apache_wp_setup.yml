@@ -1,4 +1,4 @@
-- name: install LAMP stack on server
+- name: Install Apache and Wordpress stack on server
   hosts: servers
   become: yes
 

@@ -1,0 +1,7 @@
+- name: install LAMP stack and Wordpress on server
+  hosts: servers
+  vars_files:
+  - ./group_vars/all
+  roles:
+    - wordpress
+    - mysql_server
