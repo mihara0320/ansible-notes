@@ -1,0 +1,17 @@
+- name: Create directory for WP in /var/www/html/
+  file:
+    state: directory
+    path: /var/www/html/blog
+  become: yes
+
+- name: Download Wordpress archive
+  get_url:
+    url: https://wordpress.org/latest.tar.gz
+    dest: /home/student/Downloads/
+
+- name: Unarchive Wordpress
+  unarchive:
+    src: /home/student/Downloads/wordpress-4.9.8.tar.gz
+    dest: /var/www/html/blog
+    remote_src: yes
+  become: yes
