@@ -5,6 +5,11 @@
   tasks:
     - include_tasks: common_conf.yml
 
+    - name: no ip http secure-server
+      ios_config:
+        lines:
+          - no ip http secure-server
+
     - name: configure ospf
       ios_command:
         commands:

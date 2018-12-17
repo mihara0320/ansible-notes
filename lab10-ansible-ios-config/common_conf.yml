@@ -7,7 +7,6 @@
       - service password-encryption
       - ip ssh version 2
       - no ip http server
-      - no ip http secure-server
   register: my_output
 
 - name: show output

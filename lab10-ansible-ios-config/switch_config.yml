@@ -5,6 +5,19 @@
   tasks:
     - include_tasks: common_conf.yml
 
+    - name: set vtp transparent
+      ios_command:
+        commands:
+          - conf t
+          - vtp mode transparent
+
+    - name: give description to fa 0/0
+      ios_command:
+        commands:
+          - conf t
+          - int e 0/0
+          - description thisIsMyDescription
+
     - name: show cdp neig
       ios_command:
         commands:
