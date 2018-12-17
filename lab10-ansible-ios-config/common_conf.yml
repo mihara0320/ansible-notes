@@ -1,0 +1,17 @@
+- name: common config
+  ios_config:
+    lines:
+      - hostname {{ inventory_hostname }}
+      - ntp server 203.45.45.23
+      - logging 6.6.6.6
+      - service password-encryption
+      - ip ssh version 2
+      - no ip http server
+      - no ip http secure-server
+  register: my_output
+
+- name: show output
+  debug: var=my_output.updates
+  when: my_output.changed
+
+

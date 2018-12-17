@@ -1,0 +1,23 @@
+---
+- name: Setup Routers
+  hosts: routers
+  gather_facts: false
+  tasks:
+    - include_tasks: common_conf.yml
+
+    - name: configure ospf
+      ios_command:
+        commands:
+          - conf t
+          - router ospf 1
+          - network 0.0.0.0 255.255.255.255 a 0
+          - network 10.0.2.0 0.0.0.3 a 0
+          - network 10.0.3.0 0.0.0.3 a 0
+
+    - name: show ospf neig
+      ios_command:
+        commands:
+          show ip ospf neighbor
+      register: my_output
+
+    - debug: var=my_output

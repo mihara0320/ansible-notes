@@ -1,0 +1,15 @@
+en
+conf t
+int fa0/0 ! OR gi0/0 OR vlan1
+no sh
+ip add dhcp
+
+username cisco privilege 15 password cisco
+enable password cisco
+ip domain-name something
+hostname SomeRouter
+cry key generate rsa mod 1024
+
+line vty 0 4
+transport input ssh
+login local

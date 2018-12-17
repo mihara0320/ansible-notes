@@ -1,0 +1,14 @@
+---
+- name: Setup Switches
+  hosts: switches
+  gather_facts: false
+  tasks:
+    - include_tasks: common_conf.yml
+
+    - name: show cdp neig
+      ios_command:
+        commands:
+          show cdp neig
+      register: my_output
+
+    - debug: var=my_output
