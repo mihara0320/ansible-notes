@@ -1,0 +1,21 @@
+vlans:
+ 10: USERS
+ 20: STUDENTS
+ 30: TEACHERS
+
+vlan_map:
+ 1/0-3: 10
+ 2/0-3: 20
+ 3/0-3: 20
+
+descriptions:
+ 0/0: 
+  iface: Ethernet
+  name: PC
+ 0/1: 
+  iface: Ethernet
+  name: Router
+ 1/0-3: 
+  iface: Ethernet
+  name: Some_random_desc
+

@@ -1,0 +1,7 @@
+interface lo0
+description Loopback
+ip address 1.1.1.1 255.255.255.255
+!
+enable secret cisco
+!
+no logging console

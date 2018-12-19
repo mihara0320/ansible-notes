@@ -1,0 +1,27 @@
+--- 
+all: 
+  children:
+    routers:
+      hosts:
+        r1:
+          ansible_ssh_host: 192.168.122.159
+          ansible_ssh_user: cisco
+          ansible_ssh_pass: cisco
+          ansible_become: yes
+          ansible_become_pass: cisco
+          ansible_network_os: ios
+          ansible_connection: network_cli
+          ansible_become_method: enable
+          ansible_ssh_common_args: -oKexAlgorithms=+diffie-hellman-group1-sha1
+    switches:
+      hosts:
+        s1:
+          ansible_ssh_host: 192.168.122.200
+          ansible_ssh_user: cisco
+          ansible_ssh_pass: cisco
+          ansible_become: yes
+          ansible_become_pass: cisco
+          ansible_network_os: ios
+          ansible_connection: network_cli
+          ansible_become_method: enable
+          ansible_ssh_common_args: -oKexAlgorithms=+diffie-hellman-group1-sha1

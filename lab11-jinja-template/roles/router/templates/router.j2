@@ -1,0 +1,7 @@
+interface lo0
+description Loopback
+ip address {{ item.loopback }}
+!
+enable secret {{ item.enable_secret }}
+!
+no logging console

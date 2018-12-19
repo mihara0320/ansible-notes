@@ -1,0 +1,4 @@
+- name: Generate config file
+  template: src=router.j2 dest=../{{item.hostname}}.txt
+  with_items: "{{ routers }}"
+

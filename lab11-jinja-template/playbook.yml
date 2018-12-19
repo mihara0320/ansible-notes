@@ -1,0 +1,7 @@
+- name: Setups
+  hosts: all
+  tasks:
+    - name: Setup
+      ios_config:
+        src: template.j2
+      
