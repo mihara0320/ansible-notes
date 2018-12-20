@@ -1,0 +1,23 @@
+- name: LAB12 PLAYBOOK(SWITCH)
+  hosts: switches
+  gather_facts: false
+  connection: local
+  vars:
+  tasks:
+    - name: load new acl into device
+      ios_config:
+        lines:
+          - permit tcp host {{ admin_laptop }} any
+        parents:
+          - ip access-list extended {{ management_acl }}
+        before:
+          - no ip access-list extended {{ management_acl }}
+        replace: block
+        match: exact
+        after:
+          - line vty 0 4
+          - access-class {{ management_acl }} in
+      register: my_output
+
+    - debug: var=my_output.updates
+      when: my_output.changed

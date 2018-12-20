@@ -1,0 +1,60 @@
+- name: Router ACL Setup
+  hosts: routers
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: load new management_acl into device
+      ios_config:
+        lines:
+          - permit tcp host {{ admin_laptop }} any
+        parents:
+          - ip access-list extended {{ management_acl }}
+        before:
+          - no ip access-list extended {{ management_acl }}
+        replace: block
+        match: exact
+        after:
+          - line vty 0 4
+          - access-class {{ management_acl }} in
+      register: my_output
+    - debug: var=my_output.updates
+      when: my_output.changed
+
+    - name: load new internet_acl into device
+      ios_config:
+        lines:
+          - permit icmp any {{ LAN }}
+          - permit tcp any {{ LAN }} established
+        parents:
+          - ip access-list extended {{ internet_acl }}
+        before:
+          - no ip access-list extended {{ internet_acl }}
+        replace: block
+        match: exact
+        after:
+          - interface FastEthernet 0/0
+          - ip access-group {{ internet_acl }} out
+      register: my_output
+
+    - debug: var=my_output.updates
+      when: my_output.changed
+
+    - name: Internet resources ACL
+      ios_config:
+        lines:
+          - deny   icmp {{ LAN }} host 8.8.8.8
+          - deny   tcp host {{ bad_guy }} any eq www
+          - permit ip any any
+        parents:
+          - ip access-list extended {{ internet_resources_acl }}
+        before:
+          - no ip access-list extended {{ internet_resources_acl }}
+        replace: block
+        match: exact
+        after:
+          - interface FastEthernet 0/0
+          - ip access-group {{ internet_resources_acl }} out
+      register: my_output
+
+    - debug: var=my_output.updates
+      when: my_output.changed

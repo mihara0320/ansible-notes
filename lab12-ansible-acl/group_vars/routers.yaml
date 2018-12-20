@@ -1,0 +1,6 @@
+management_acl: ACCESS_TO_ROUTER
+internet_acl: TRAFFIC_FROM_INTERNET
+internet_resources_acl: RESTRICT_RESOURCES
+admin_laptop: 192.168.122.1
+LAN: 192.168.122.0 0.0.0.255
+bad_guy: 192.168.122.66
