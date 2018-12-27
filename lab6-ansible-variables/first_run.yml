@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  gather_facts: yes
   tasks:
     - name: Update and upgrade apt packages
       become: yes

@@ -4,4 +4,6 @@
     - name: Setup
       ios_config:
         src: template.j2
-      
+        
+      register: my_output
+    - debug: var=my_output

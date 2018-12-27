@@ -13,7 +13,7 @@
   htpasswd:
     path: /etc/apache2/passwdfile
     create: yes
-    name: "{{ http_user }}"
+    name: "aaa"
     password: "{{ http_password }}"
     owner: root
     group: www-data

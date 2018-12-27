@@ -21,16 +21,13 @@
   mysql_db:
     name: wordpressDb
     state: present
-  notify:
-    - Restart apache
   become: yes
 
 - name: Create new user with all privileges
   mysql_user:
     name: "{{ mysql_user }}"
     password: "{{ mysql_user_pass }}"
-    priv: '*.*:ALL'
+    priv: 'wordpressDb.*:ALL'
     state: present
-  notify:
-    - Restart apache
+
   become: yes

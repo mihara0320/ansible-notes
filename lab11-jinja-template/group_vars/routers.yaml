@@ -6,19 +6,19 @@ descriptions:
 tunnels:
   11:
     r1: 
-      ip: 172.168 255.255.255.252
-      src: lo0
+      ip: 172.168.0.1 255.255.255.252
+      src: Loopback0
       dest: 2.2.2.2 
     r2:
       ip: 10.10.10.2 255.255.255.252
-      src: lo0
+      src: Loopback0
       dest: 1.1.1.1 
   24:
     r1:
       ip: 10.10.20.1 255.255.255.252
-      src: lo0
+      src: Loopback0
       dest: 3.3.3.3
     r3:
       ip: 10.10.20.2 255.255.255.252
-      src: lo0
+      src: Loopback0
       dest: 1.1.1.1 

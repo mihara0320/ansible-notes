@@ -43,7 +43,7 @@
       ios_config:
         lines:
           - deny   icmp {{ LAN }} host 8.8.8.8
-          - deny   tcp host {{ bad_guy }} any eq www
+          - deny   udp host {{ bad_guy }} any eq 80
           - permit ip any any
         parents:
           - ip access-list extended {{ internet_resources_acl }}

@@ -52,6 +52,8 @@
             </Directory>
           </VirtualHost>
         dest: /etc/apache2/sites-available/000-default.conf
+      notify:
+        - Restart apache
 
     - name: Create directory for WP in /var/www/html/
       file:
@@ -64,8 +66,8 @@
         dest: /var/www/html/wp
         remote_src: yes
 
-
-    - name: restart apache
+  handlers:
+    - name: Restart apache
       service:
         name: apache2
         state: restarted
