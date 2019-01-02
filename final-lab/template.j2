@@ -1,0 +1,33 @@
+{% if vlans is defined %}
+{% for vlan,name in vlans.iteritems() %}
+vlan {{vlan}}
+ name {{name}}
+{% endfor %}
+{% endif %}
+
+{% if vlan_map is defined %}
+{% for ifacerange,vlan in vlan_map.iteritems() %}
+{% if '-' in ifacerange|string %}
+{% set tmp = ifacerange.split('/') %}
+{% set rng = tmp[1].split('-') %}
+{% for iface in range(rng[0]|int, rng[1]|int + 1) %}
+interface Ethernet{{tmp[0]}}/{{iface}}
+ switchport mode access
+ switchport access vlan {{vlan}}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if tunnels is defined %}
+{% for tunnel, routers in tunnels.iteritems() %}
+interface Tunnel{{tunnel}}
+{% for hostname, config in routers.iteritems() %}
+{% if inventory_hostname == hostname %}
+ ip address {{ config.ip }}
+ tunnel source {{ config.src }}
+ tunnel destination {{ config.dest }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}

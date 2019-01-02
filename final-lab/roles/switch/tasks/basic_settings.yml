@@ -1,0 +1,17 @@
+---
+- name: basic settings
+  ios_config:
+    lines:
+      - no ip domain lookup
+      - hostname {{ inventory_hostname }}
+      - service password-encryption
+      - ip ssh version 2
+      - no ip http server
+      - banner motd \$ {{ motd_banner }} \$
+  register: my_output
+
+- name: show output
+  debug: var=my_output.updates
+  when: my_output.changed
+
+

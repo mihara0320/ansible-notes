@@ -1,0 +1,6 @@
+- name: Setup Routers
+  hosts: routers
+  vars_files:
+  - ./group_vars/all.yaml
+  roles:
+    - router

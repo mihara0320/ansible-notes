@@ -1,0 +1,29 @@
+{% if interfaces is defined %}
+{% for host,interface_config in interfaces.iteritems() %}
+{# {% if host == inventory_hostname %} #}
+{% if host == inventory_hostname %}
+{% for port,config in interface_config.iteritems() %}
+interface {{config.type}} {{port}}
+ 
+ {% if config.ip_v4 is defined %}
+ ip address {{config.ip_v4}}
+ {% endif %}
+
+ {% if config.ip_v6 is defined %}
+ ipv6 address {{config.ip_v6}}
+ {% endif %}
+
+ {% if config.clock_rate is defined %}
+ clock rate {{config.clock_rate}}
+ {% endif %}
+
+ {% if config.description is defined %}
+ description {{config.description}}
+ {% endif %}
+
+ no shutdown
+{% endfor %}
+{# {% endif %} #}
+{% endif %} 
+{% endfor %}
+{% endif %}
