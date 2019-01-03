@@ -1,0 +1,11 @@
+{% if vlans is defined %}
+
+{% for port,config in vlans.iteritems() %}
+interface {{config.type}} {{port}}
+ encapsulation dot1Q {{ config.vlan }}
+ ip address {{ config.address }}
+ description {{ config.description }}
+ no shutdown
+{% endfor %}
+
+{% endif %}

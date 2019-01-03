@@ -1,0 +1,6 @@
+- name: R1 configuration
+  connection: local
+  hosts: R1
+  roles:
+    - router
+

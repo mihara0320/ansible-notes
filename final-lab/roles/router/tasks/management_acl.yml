@@ -1,0 +1,15 @@
+---
+- name: restring vty access
+  ios_config:
+    lines:
+      - permit tcp {{ management_acl.allowed_host_map }} eq 23
+      - permit tcp {{ management_acl.admin }}
+    parents:
+      - ip access-list extended {{ management_acl.name }}
+    before:
+      - no ip access-list extended {{ management_acl.name }}
+    replace: block
+    match: exact
+    after:
+      - line vty 0 4
+      - access-class {{ management_acl.name }} in

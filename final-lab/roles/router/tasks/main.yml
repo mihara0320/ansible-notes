@@ -1,3 +1,12 @@
 ---
-- include_tasks: basic_settings.yml
-- include_tasks: basic_routes.yml
+- include_tasks: basic.yml
+- include_tasks: route.yml
+- include_tasks: vlan.yml
+- include_tasks: rip.yml
+- include_tasks: dhcp.yml
+- include_tasks: server.yml
+- include_tasks: nat.yml
+# - include_tasks: acl.yml
+- include_tasks: management_acl.yml
+  when:
+    - management_acl is defined

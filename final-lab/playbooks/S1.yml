@@ -1,0 +1,6 @@
+- name: S1 configuration
+  connection: local
+  hosts: S1
+  roles:
+    - switch
+

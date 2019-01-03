@@ -1,0 +1,12 @@
+---
+- name: acl settings
+  ios_config:
+    src: acl.j2
+    after:
+      - extended_acls.applied_interface
+      - extended_acls.applied_interface_io
+  register: my_output
+
+- name: show output
+  debug: var=my_output.updates
+  when: my_output.changed

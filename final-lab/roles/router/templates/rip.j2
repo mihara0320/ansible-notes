@@ -1,0 +1,14 @@
+{% if rip_networks is defined %}
+router rip
+ version 2
+ no auto-summary
+ {% for network in rip_networks %}
+ network {{ network }}
+ {% endfor %}
+
+ {% if passive_ifaces is defined %}
+ {% for interface in passive_ifaces %}
+ passive-interface {{ interface }}
+ {% endfor %}
+{% endif %}
+{% endif %}

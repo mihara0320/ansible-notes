@@ -1,0 +1,10 @@
+{% if dhcp_config is defined %}
+{% for name,config in dhcp_config.iteritems() %}
+ip dhcp excluded-address {{ config.start }} {{ config.end }}
+ip dhcp pool {{ name }}
+ network {{ config.net }}
+ default-router {{ config.default_gateway }}
+ dns-server {{ config.dns }}
+ domain-name {{ config.domain }}
+{% endfor %}
+{% endif %}

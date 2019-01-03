@@ -1,0 +1,9 @@
+---
+- name: rip settings
+  ios_config:
+    src: rip.j2
+  register: my_output
+
+- name: show output
+  debug: var=my_output.updates
+  when: my_output.changed

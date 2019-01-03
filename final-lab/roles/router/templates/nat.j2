@@ -1,0 +1,27 @@
+{% if local_user is defined %}
+username {{ local_user.name }} privilege {{ local_user.priv }} password {{ local_user.pass }}
+{% endif %}
+ip http server
+ip http authentication local
+
+{% if static_nat is defined %}
+{% for name,config in static_nat.iteritems() %}
+ip nat inside source static {{ config.in_lo_addr }} {{ config.in_gl_addr }}
+interface {{ config.in_iface }}
+ ip nat inside
+interface {{ config.out_iface }}
+ ip nat outside
+{% endfor %}
+{% endif %}
+
+{% if dynamic_nat is defined %}
+ip nat pool {{ dynamic_nat.name }} {{ dynamic_nat.start }} {{ dynamic_nat.end }} netmask {{ dynamic_nat.mask }}
+{% for net in dynamic_nat.acl.permitted %}
+access-list {{ dynamic_nat.acl.number }} permit {{ net }}
+{% endfor %}
+ip nat inside source list {{ dynamic_nat.acl.number }} pool {{ dynamic_nat.name }}
+interface {{ dynamic_nat.in_int }}
+ ip nat inside
+interface {{ dynamic_nat.out_int }}
+ ip nat outside
+{% endif %}

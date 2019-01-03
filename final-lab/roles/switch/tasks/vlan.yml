@@ -1,0 +1,9 @@
+---
+- name: vlan settings
+  ios_config:
+    src: vlan.j2
+  register: my_output
+
+- name: show output
+  debug: var=my_output.updates
+  when: my_output.changed

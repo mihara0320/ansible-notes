@@ -1,0 +1,56 @@
+interfaces:
+  3/1: 
+    type: Serial
+    ip_v4: 172.16.1.1 255.255.255.252
+    ip_v6: 2001:DB8:ACAD:1::1/64
+    clock_rate: 128000
+    description: connected_to_R2
+
+routes:
+  3/1:
+    type: Serial
+    ip_v4: 0.0.0.0 0.0.0.0
+    ip_v6: ::/0
+
+vlans:
+  1/0.21:
+    type: FastEthernet
+    description: Accounting LAN
+    address: 192.168.21.1 255.255.255.0
+    vlan: 21
+  1/0.23:
+    type: FastEthernet
+    description: Accounting LAN
+    address: 192.168.23.1 255.255.255.0
+    vlan: 23
+  1/0.99:
+    type: FastEthernet
+    description: Management LAN
+    address: 192.168.99.1 255.255.255.0
+    vlan: 99
+
+rip_networks:
+  - 172.16.1.0
+  - 192.168.99.0
+  - 192.168.21.0
+  - 192.168.23.0
+
+passive_ifaces:
+  - FastEthernet1/0
+
+dhcp_config:
+  ACCT:
+    start: 192.168.21.1
+    end: 192.168.21.20
+    net: 192.168.21.0 255.255.255.0
+    default_gateway: 192.168.21.1
+    dns: 10.10.10.10
+    domain: ccna-sa.com
+  ENGNR:
+    start: 192.168.23.1
+    end: 192.168.23.20
+    net: 192.168.23.0 255.255.255.0
+    default_gateway: 192.168.23.1
+    dns: 10.10.10.10
+    domain: ccna-sa.com
+

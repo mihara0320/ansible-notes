@@ -1,0 +1,20 @@
+vlan_names:
+  21: ACCOUNTING
+  23: ENGINEERING
+  99: MANAGEMENT
+
+vlan_networks:
+  21: 192.168.21.200 255.255.255.0
+  23: 192.168.23.200 255.255.255.0
+  99: 192.168.99.200 255.255.255.0
+# Should be dhcp but since IOU does not support ...
+#  21: dhcp
+#  23: dhcp
+#  99: dhcp
+
+vlan_map:
+  21:
+    ifaces: [Ethernet 0/1]
+  trunk: 
+    ifaces: [Ethernet 1/0, Ethernet 2/0]
+    native: vlan 1

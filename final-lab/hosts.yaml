@@ -6,6 +6,8 @@
           ansible_ssh_host: 192.168.122.101
         R2:
           ansible_ssh_host: 172.16.1.2
+        R3:
+          ansible_ssh_host: 172.16.2.1
     switches:
       hosts:
         S1:

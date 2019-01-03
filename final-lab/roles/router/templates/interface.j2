@@ -1,8 +1,6 @@
 {% if interfaces is defined %}
-{% for host,interface_config in interfaces.iteritems() %}
-{# {% if host == inventory_hostname %} #}
-{% if host == inventory_hostname %}
-{% for port,config in interface_config.iteritems() %}
+
+{% for port,config in interfaces.iteritems() %}
 interface {{config.type}} {{port}}
  
  {% if config.ip_v4 is defined %}
@@ -23,7 +21,5 @@ interface {{config.type}} {{port}}
 
  no shutdown
 {% endfor %}
-{# {% endif %} #}
-{% endif %} 
-{% endfor %}
+
 {% endif %}

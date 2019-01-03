@@ -1,7 +1,7 @@
 ---
-- name: route settings
+- name: vlan settings
   ios_config:
-    src: route_settings.j2
+    src: vlan.j2
   register: my_output
 
 - name: show output

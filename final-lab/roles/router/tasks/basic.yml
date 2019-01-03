@@ -12,7 +12,7 @@
 
 - name: interface settings
   ios_config:
-    src: interface_settings.j2
+    src: interface.j2
   register: my_output
 
 - name: show output

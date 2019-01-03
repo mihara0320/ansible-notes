@@ -1,0 +1,31 @@
+{% if vlan_names is defined %}
+{% for vlan_id,name in vlan_names.iteritems() %}
+vlan {{vlan_id}}
+ name {{name}}
+{% endfor %}
+{% endif %}
+
+{% if vlan_networks is defined %}
+{% for vlan_id,network in vlan_networks.iteritems() %}
+interface vlan {{vlan_id}}
+ ip address {{network}}
+ no shutdown
+{% endfor %}
+{% endif %}
+
+{% if vlan_map is defined %}
+{% for vlan,config in vlan_map.iteritems() %}
+{% for iface in config.ifaces %}
+interface {{iface}}
+ {% if vlan is number %}
+ switchport mode access
+ switchport access vlan {{vlan}} 
+ {% elif vlan == 'trunk' %}
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native {{config.native}}
+ switchport trunk allowed vlan all
+ {% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}

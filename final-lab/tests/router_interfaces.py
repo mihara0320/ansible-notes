@@ -3,8 +3,8 @@ import yaml
 
 env = Environment(loader=FileSystemLoader('./'))
 #What template to use:
-template = env.get_template('./roles/router/templates/interface_settings.j2')
+template = env.get_template('./roles/router/templates/interface.j2')
 #With what vars fill template:
-ac_vars = yaml.load(open('./roles/router/vars/main.yaml'))
+ac_vars = yaml.load(open('./group_vars/R1.yml'))
 #What would be the result
 print (template.render(ac_vars))

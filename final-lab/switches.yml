@@ -1,6 +1,0 @@
-- name: Setup Switches
-  hosts: switches
-  vars_files:
-  - ./group_vars/all.yaml
-  roles:
-    - switch

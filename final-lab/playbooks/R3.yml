@@ -1,0 +1,6 @@
+- name: R3 configuration
+  connection: local
+  hosts: R3
+  roles:
+    - router
+

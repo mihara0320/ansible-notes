@@ -1,13 +1,9 @@
 {% if routes is defined %}
-{% for host,route_config in routes.iteritems() %}
-{# {% if host == inventory_hostname %} #}
 
-{% for port,config in route_config.iteritems() %}
+{% for port,config in routes.iteritems() %}
 interface {{config.type}} {{port}}
  ip route {{config.ip_v4}} {{config.type}} {{port}}
  ipv6 route {{config.ip_v6}} {{config.type}} {{port}}
 {% endfor %}
-{# {% endif %} #}
 
-{% endfor %}
 {% endif %}

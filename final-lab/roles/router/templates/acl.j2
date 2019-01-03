@@ -1,0 +1,14 @@
+{% if extended_acls is defined %}
+{% for acl_name,config in extended_acls.iteritems() %}
+no ip access-list extended {{ acl_name }}
+ip access-list extended {{ acl_name }}
+
+ {% if config.allowed_tcp is defined %}
+ {% for port in config.allowed_tcp %}
+ {% for host_map in config.allowed_host_map %}
+ permit tcp {{ host_map }} eq {{port}}
+ {% endfor %}
+ {% endfor %}
+ {% endif %}
+{% endfor %}
+{% endif %} 
