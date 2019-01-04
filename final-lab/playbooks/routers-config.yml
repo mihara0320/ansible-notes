@@ -1,0 +1,17 @@
+- name: R1 configuration
+  connection: local
+  hosts: R1
+  roles:
+    - router
+- name: R2 configuration
+  connection: local
+  hosts: R2
+  roles:
+    - router
+- name: R3 configuration
+  connection: local
+  hosts: R3
+  roles:
+    - router
+
+

@@ -1,0 +1,28 @@
+- name: Install MySQL packages
+  apt:
+    name: mysql-server
+    state: present
+    update_cache: yes
+
+- name: Install dependencies for python mysqlclient
+  apt: name={{ item }} state=latest
+  with_items:
+    - python3-pip
+    - python-dev
+    - libmysqlclient-dev
+
+- name: Install mysqlclient via pip
+  pip: name=mysqlclient
+
+- name: Create a new database for Wordpress
+  mysql_db:
+    name: "{{db_name}}"
+    state: present
+
+- name: Create new user with all privileges
+  mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_user_pass }}"
+    priv: '{{db_name}}.*:ALL'
+    state: present
+

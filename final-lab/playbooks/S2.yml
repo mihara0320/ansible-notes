@@ -1,6 +1,0 @@
-- name: S2 configuration
-  connection: local
-  hosts: S2
-  roles:
-    - switch
-

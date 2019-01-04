@@ -1,7 +1,7 @@
 {% if interfaces is defined %}
 
 {% for port,config in interfaces.iteritems() %}
-interface {{config.type}} {{port}}
+interface {{config.type}}{{port}}
  
  {% if config.ip_v4 is defined %}
  ip address {{config.ip_v4}}

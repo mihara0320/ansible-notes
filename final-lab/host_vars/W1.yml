@@ -1,0 +1,2 @@
+db_name: wordpress_db
+custom_http_port: 8080

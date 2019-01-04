@@ -1,3 +1,4 @@
 ### To be able to ping to remote network in the GNS
 ### add static route manually 
 sudo ip route add 172.16.0.0/16 via 192.168.122.1 dev virbr0
+sudo ip route add 209.165.200.232/29 via 192.168.122.1 dev virbr0

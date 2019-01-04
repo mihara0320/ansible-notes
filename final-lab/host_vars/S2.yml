@@ -13,7 +13,7 @@ vlan_networks:
 #  99: dhcp
 
 vlan_map:
-  21:
+  23:
     ifaces: [Ethernet 0/1]
   trunk: 
     ifaces: [Ethernet 1/0, Ethernet 2/0]

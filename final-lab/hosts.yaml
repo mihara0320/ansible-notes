@@ -14,4 +14,9 @@
           ansible_ssh_host: 192.168.122.100
         S2:
           ansible_ssh_host: 192.168.122.200
-
+    webservers:
+      hosts:
+        W1:
+          ansible_ssh_host: 192.168.122.95
+          ansible_ssh_user: kenzi 
+          ansible_python_interpreter: python3

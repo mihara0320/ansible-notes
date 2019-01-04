@@ -1,0 +1,13 @@
+- name: S1 configuration
+  connection: local
+  hosts: S1
+  roles:
+    - switch
+- name: S2 configuration
+  connection: local
+  hosts: S2
+  roles:
+    - switch
+
+
+

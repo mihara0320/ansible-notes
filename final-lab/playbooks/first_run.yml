@@ -1,0 +1,23 @@
+---
+- hosts: W1
+  gather_facts: yes
+  tasks:
+    - name: Update and upgrade apt packages
+      become: yes
+      apt:
+        upgrade: yes
+        update_cache: yes
+
+    - file:
+        state: directory
+        path: .ssh
+
+    - copy:
+        src: ~/.ssh/id_rsa.pub
+        dest: .ssh/authorized_keys
+
+    - copy:
+        content: "{{ ansible_user_id }} ALL=(ALL) NOPASSWD:ALL"
+        dest: /etc/sudoers.d/nopasswd
+      become: yes
+  
