@@ -1,4 +1,4 @@
-- name: Install LAMP stack and Wordpress on server
+- name: Install LAMP on server
   hosts: W1
   become: yes
   roles:
